@@ -28,4 +28,4 @@ class MicroserviceHelloWorldController @Inject() (
 
   val hello: Action[AnyContent] =
     Action:
-    implicit request => Ok("Hello world")
+    _ => Ok("Hello world")
