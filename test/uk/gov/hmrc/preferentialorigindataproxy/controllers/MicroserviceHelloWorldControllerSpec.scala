@@ -18,15 +18,25 @@ package uk.gov.hmrc.preferentialorigindataproxy.controllers
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import play.api.http.Status.OK
+import play.api.test.Helpers.{GET, contentAsString, defaultAwaitTimeout, status}
 import play.api.test.{FakeRequest, Helpers}
 
-class MicroserviceHelloWorldControllerSpec extends AnyWordSpec with Matchers:
+class MicroserviceHelloWorldControllerSpec extends AnyWordSpec with Matchers {
 
-  private val fakeRequest = FakeRequest("GET", "/")
-  private val controller  = new MicroserviceHelloWorldController(Helpers.stubControllerComponents())
+  private val controller =
+    new MicroserviceHelloWorldController(Helpers.stubControllerComponents())
 
-  "GET /" should {
+  "GET /hello-world" should {
+
     "return 200" in {
-      // test code
+
+      val request = FakeRequest(GET, "/hello-world")
+
+      val result = controller.helloWorld()(request)
+
+      status(result)          shouldBe OK
+      contentAsString(result) shouldBe "Hello world"
     }
   }
+}
